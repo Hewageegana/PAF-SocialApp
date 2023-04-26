@@ -1,0 +1,45 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+h1{
+    font-family: 'pacifico', cursive;
+    font-weight: 600;
+}
+
+#row{
+    background-color: white;
+    border-radius: 30px;
+    border-color: 3px black;
+    box-shadow: 12px 12px 22px grey;
+
+}
+.img-fluid{
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.btnLogin{
+    border: none;
+    outline: none;
+    height: 50px;
+    width: 100%;
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btnLogin:hover{
+    background-color: white;
+    border: 1px solid;
+    color: black;
+}
+
+.ss1{
+    font-family: sans-serif;
+    font-weight: 550;
+    text-decoration: none;
+}
