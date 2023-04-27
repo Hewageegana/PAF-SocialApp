@@ -6,7 +6,7 @@ import '../css/post.css';
 import loginimg from '../../Assets/images/photo1.jpeg'
 
 
-export default function createPost() {
+export default function createStatus() {
     return (
         <>
             <div className="Form my-4 mx-2">
@@ -16,7 +16,7 @@ export default function createPost() {
                             <img src={loginimg} className="img-fluid" alt=""></img>
                         </div>
                         <div className="col-lg-6">
-                            <h1>Publish your Post here</h1>
+                            <h1>Publish your Status here</h1>
                             <form className="publishPost">
                                 <div className="col-lg-7 ">
                                     <div class="input-group">
@@ -27,7 +27,7 @@ export default function createPost() {
                                 <div className="col-lg-7">
                                     <div class="form-floating">
                                         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: 150+'px'}}></textarea>
-                                        <label for="floatingTextarea2">What's on your mind?</label>
+                                        <label for="floatingTextarea2">Enter Caption here</label>
                                     </div>
                                     <button type="button" id="btn-publish" class="btn btn-outline-primary">Publish</button>
                                 </div>

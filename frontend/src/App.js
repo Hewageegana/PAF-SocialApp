@@ -4,15 +4,19 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Authentication from "./components/authentication/loginPage";
 import Register from "./components/authentication/registerPage";
 import createPost from "./components/post/createPost";
+import createStatus from "./components/status/createStatus";
+import header from "./components/common/header";
 
 function App() {
   return (
     <Router>
       <div>
+        <Route path="/head" exact component={header} />
         <Route path="/" exact component={Authentication} />
         <Route path="/register" exact component={Register} />
         <Route path="/post" exact component={createPost} />
-        
+        <Route path="/status" exact component={createStatus} />
+
 
       </div>
     </Router>

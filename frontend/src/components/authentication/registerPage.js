@@ -46,6 +46,24 @@ export default function Register() {
                             </div>
 
                             <div class="mb-3">
+                                <input
+                                    type="text"
+                                    name=""
+                                    class="form-control p-3 shadow-none rounded-pill"
+                                    id=""
+                                    placeholder="Age"
+                                />
+                            </div>
+                            <div class="input-group mb-3">
+                               
+                                <select class="form-control p-3 shadow-none rounded-pill" id="inputGroupSelect03" aria-label="Example select with button addon">
+                                    <option selected>Choose...</option>
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                  
+                                </select>
+                            </div>
+                            <div class="mb-3">
                                 <button
                                     class="btn btn-primary p-3 btn-custom shadow-none rounded-pill w-100"
                                 >
