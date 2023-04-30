@@ -6,6 +6,7 @@ import Register from "./components/authentication/registerPage";
 import createPost from "./components/post/createPost";
 import createStatus from "./components/status/createStatus";
 import header from "./components/common/header";
+import PostWall from "./components/post/feed";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/register" exact component={Register} />
         <Route path="/post" exact component={createPost} />
         <Route path="/status" exact component={createStatus} />
+        <Route path="/wall" exact component={PostWall} />
 
 
       </div>

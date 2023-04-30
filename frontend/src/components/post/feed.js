@@ -6,14 +6,24 @@ import '../css/feed.css';
 
 
 
-export default function feed() {
+export default function PostWall() {
     return (
         <>
-         <div className="container">
+
             <div className="post-container">
-                
+                <div className="auth-cap">
+                    <div className="feed-header">
+                        <h5>Rusiru Hewageegana</h5>
+                    </div>
+                    <div className="caption">
+                        <p>dinner outing with friends</p>
+                    </div>
+                </div>
+                <div className="feed-img">
+
+                </div>
             </div>
-         </div>
+
         </>
     );
 }

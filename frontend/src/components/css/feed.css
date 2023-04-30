@@ -1,0 +1,34 @@
+.post-container{
+    display: block;
+    margin: 0 auto;
+    margin-top: 2%;
+    width: 650px;
+    height: 550px;
+    background-color: rgb(239, 234, 234);
+    box-shadow: 12px 12px 45px grey;
+}
+.auth-cap{
+    margin-top: 4%;
+    margin-left: 5%;
+}
+
+.feed-img{
+    display: block;
+    margin: 0 auto;
+    margin-top: 2%;
+    width: 450px;
+    height: 400px;
+    background-color: rgb(255, 255, 255);
+}
+
+.feed-header h5{
+    font-size: large;
+    font-weight: 700;
+    margin-top: 2%;
+}
+
+.caption p{
+    font-weight: lighter;
+    opacity: 0.8;
+    margin-left: 10%;
+}
