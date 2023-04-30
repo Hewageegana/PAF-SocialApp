@@ -3,11 +3,11 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Authentication from "./components/authentication/loginPage";
 import Register from "./components/authentication/registerPage";
-import createPost from "./components/post/createPost";
-import createStatus from "./components/status/createStatus";
 import header from "./components/common/header";
 import PostWall from "./components/post/feed";
-import addComment from "./components/comment/addComment";
+import CreatePost from "./components/post/createPost";
+import AddComment from "./components/comment/addComment";
+import CreateStatus from "./components/status/createStatus";
 
 function App() {
   return (
@@ -16,10 +16,10 @@ function App() {
         <Route path="/head" exact component={header} />
         <Route path="/" exact component={Authentication} />
         <Route path="/register" exact component={Register} />
-        <Route path="/post" exact component={createPost} />
-        <Route path="/status" exact component={createStatus} />
+        <Route path="/post" exact component={CreatePost} />
+        <Route path="/status" exact component={CreateStatus} />
         <Route path="/wall" exact component={PostWall} />
-        <Route path="/comment" exact component={addComment} />
+        <Route path="/comment" exact component={AddComment} />
         
 
 

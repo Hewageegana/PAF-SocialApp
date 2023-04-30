@@ -1,0 +1,1 @@
+export const base_URL = "http://localhost:8087/social-media-domain/";

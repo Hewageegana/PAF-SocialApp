@@ -8,7 +8,7 @@ import loginimg from '../../Assets/images/photo1.jpeg'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
-export default function addComment() {
+export default function AddComment() {
     return (
         <>
             <div className="Form my-4 mx-2">

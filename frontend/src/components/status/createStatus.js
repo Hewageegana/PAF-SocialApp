@@ -6,7 +6,7 @@ import '../css/post.css';
 import loginimg from '../../Assets/images/photo1.jpeg'
 
 
-export default function createStatus() {
+export default function CreateStatus() {
     return (
         <>
             <div className="container">

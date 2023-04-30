@@ -6,7 +6,30 @@ import '../css/post.css';
 import loginimg from '../../Assets/images/photo1.jpeg'
 
 
-export default function createPost() {
+export default function CreatePost() {
+    const [post, setPost] = useState([]);
+    const [image, setImage] = useState("");
+    const [description, setDesc] = useState("");
+
+
+    const AddPost = (event) => {
+        event.preventDefault();
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        };
+        const data = new FormData();
+        const [image, setImage] = useState("");
+        data.append('image', image);
+        data.append('postDTOString', {
+            "postDescription": description
+        });
+        axios.post('/social-media-domain/users/304cccfe-a431-4330-810c-2fd288346dab/posts', data, config)
+            .then(response => console.log(response.data))
+            .catch(error => console.error(error));
+    };
+
     return (
         <>
             <div className="Form my-4 mx-2">
@@ -20,16 +43,23 @@ export default function createPost() {
                             <form className="publishPost">
                                 <div className="col-lg-7 ">
                                     <div class="input-group">
-                                        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" />
-                                        
+                                        <input type="file" class="form-control" id="inputGroupFile04" onChange={(e)=>{
+                                            const files = e.target.files
+                                            setImage(files[0])
+                                        }} aria-describedby="inputGroupFileAddon04" aria-label="Upload" />
+
                                     </div>
                                 </div>
                                 <div className="col-lg-7">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: 150+'px'}}></textarea>
+                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{ height: 150 + 'px' }}
+                                        onChange={(e) => {
+                                            setDesc(e.target.value);
+                                          }}
+                                          />
                                         <label for="floatingTextarea2">What's on your mind?</label>
                                     </div>
-                                    <button type="button" id="btn-publish" class="btn btn-outline-primary">Publish</button>
+                                    <button type="button" id="btn-publish" onClick={AddPost} class="btn btn-outline-primary">Publish</button>
                                 </div>
                             </form>
                         </div>
