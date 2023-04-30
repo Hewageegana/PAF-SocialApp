@@ -15,8 +15,8 @@ export default function Authentication() {
                             <img src={loginimg} className="img-fluid" alt=""></img>
                         </div>
                         <div className="col-lg-7 px-5 pt-5">
-                            <h1 className="font-weight-bold py-3">Hello Again, Foodie</h1>
-                            <h4>We are happy to have you back! </h4><br/>
+                            <h1 className="font-weight-bold py-3">Hello, Foodie</h1>
+                          
                             <h4>Sign into your account</h4>
                             <form>
                                 <div className="form-row">
@@ -32,8 +32,11 @@ export default function Authentication() {
                                 <div className="form-row">
                                     <div className="col-lg-7">
                                         <button type="button" className="btnLogin mt-3 mb-5">Login</button>
+                                        <button type="button" className="btnLogin mt-3 mb-5" id="btn-auth">Login with google</button>
                                     </div>
+                                    
                                 </div>
+                                
                                 <a href="#" className="ss1">Forget Password?</a>
                                 <p>Don't have an acount?<a href="/register" className="ss1"> Register here</a></p>
                             </form>

@@ -43,3 +43,20 @@ h1{
     font-weight: 550;
     text-decoration: none;
 }
+
+#btn-auth{
+    border: none;
+    outline: none;
+    height: 50px;
+    width: 100%;
+    background-color: rgb(179, 7, 7);
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+#btn-auth:hover{
+    background-color: white;
+    border: 1px solid;
+    color: rgb(179, 7, 7);
+}

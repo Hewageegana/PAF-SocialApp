@@ -47,7 +47,7 @@ public class PostsController extends BaseController {
     @ResponseBody
     public void updatePost(HttpServletResponse response, @PathVariable("profileId") String profileId,
         @PathVariable("postId") String postId, @RequestPart String postDTOString,
-        @RequestPart(value = "image", required = false) MultipartFile file) throws JsonProcessingException {
+        @RequestPart(value = "image", required = false) MultipartFile file) throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         PostDTO postDTO = objectMapper.readValue(postDTOString, PostDTO.class);
