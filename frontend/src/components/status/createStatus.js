@@ -9,32 +9,43 @@ import loginimg from '../../Assets/images/photo1.jpeg'
 export default function createStatus() {
     return (
         <>
-            <div className="Form my-4 mx-2">
-                <div className="container">
-                    <div className="row g-0" id="row" >
-                        <div className="col-lg-4">
-                            <img src={loginimg} className="img-fluid" alt=""></img>
+            <div className="container">
+                <div className="row row-cols-1 row-cols-md-3 g-4">
+                    <div className="col">
+                        <div className="card">
+                            <img src="..." className="card-img-top" alt="..." />
+                            <div className="card-body">
+                                <h5 className="card-title">Card title</h5>
+                                <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
                         </div>
-                        <div className="col-lg-6">
-                            <h1>Publish your Status here</h1>
-                            <form className="publishPost">
-                                <div className="col-lg-7 ">
-                                    <div class="input-group">
-                                        <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" />
-                                        
-                                    </div>
-                                </div>
-                                <div className="col-lg-7">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style={{height: 150+'px'}}></textarea>
-                                        <label for="floatingTextarea2">Enter Caption here</label>
-                                    </div>
-                                    <button type="button" id="btn-publish" class="btn btn-outline-primary">Publish</button>
-                                </div>
-                            </form>
+                    </div>
+                    <div className="col">
+                        <div className="card">
+                            <img src="..." className="card-img-top" alt="..." />
+                            <div className="card-body">
+                                <h5 className="card-title">Card title</h5>
+                                <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
                         </div>
-
-
+                    </div>
+                    <div className="col">
+                        <div className="card">
+                            <img src="..." className="card-img-top" alt="..." />
+                            <div className="card-body">
+                                <h5 className="card-title">Card title</h5>
+                                <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col">
+                        <div className="card">
+                            <img src="..." className="card-img-top" alt="..." />
+                            <div className="card-body">
+                                <h5 className="card-title">Card title</h5>
+                                <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
