@@ -5,6 +5,7 @@ import '../css/feed.css';
 import feedImg from '../../Assets/images/loginIMG.png'
 import 'material-icons/iconfont/material-icons.css';
 import CommentIcon from '@mui/icons-material/Comment';
+import { base_URL } from "../../constants";
 
 
 
@@ -12,6 +13,27 @@ export default function PostWall() {
     const [isLiked, setIsLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
     const [commentCount, setCommentCount] = useState(0);
+
+    const [post, setPost] = useState([]);
+    const [postList, setPostList] = useState([]);
+
+
+    useEffect(() => {
+        const getPosts = async () => {
+            const res = await axios
+                .get("/social-media-domain/users/304cccfe-a431-4330-810c-2fd288346dab/posts")
+                .then((res) => {
+                    setPostList(res.data);
+                    res.data.map(item => {
+                        console.log(item);
+                    })
+
+                })
+                .catch(() => { });
+        };
+        getPosts();
+    }, []);
+
 
     function handleLike() {
         if (isLiked) {
@@ -28,38 +50,43 @@ export default function PostWall() {
 
     return (
         <>
-            <div className="feed">
-                <div className="post-container">
-                    <div className="auth-cap">
-                        <div className="feed-header">
-                            <br />
-                            <h5>Rusiru Hewageegana</h5>
-                        </div>
-                        <div className="caption">
-                            <p>Dinner outing with friends #hashtag# #foodlover#❤🍕</p>
-                        </div>
-                    </div>
-                    <div className="feed-img">
-                        <img src={feedImg} className="feed-image" alt=""></img>
-                    </div>
-                    <div className="like-comment">
-                        <div className="LikeButtonContainer">
-                            <div className="LikeButton">
-                                <button className={isLiked ? 'Liked' : 'NotLiked'} onClick={handleLike}>
-                                    {isLiked ? 'Liked' : 'Like'}
-                                </button>
-                                <span className="LikeCount">{likeCount} likes</span>
+            {postList?.map((item) => {
+
+                return (
+                <div className="feed">
+                    <div className="post-container">
+                        <div className="auth-cap">
+                            <div className="feed-header">
+                                <br />
+                                <h5>{item.postedBy}</h5>
+                            </div>
+                            <div className="caption">
+                                <p>{item.postDescription}</p>
                             </div>
                         </div>
-                        <div className="btn-comment">
-                            <button className="" onClick={handleComment}>
+                        <div className="feed-img">
+                            <img src={item.imageData} className="feed-image" alt=""></img>
+                        </div>
+                        <div className="like-comment">
+                            <div className="LikeButtonContainer">
+                                <div className="LikeButton">
+                                    <button className={isLiked ? 'Liked' : 'NotLiked'} onClick={handleLike}>
+                                        {isLiked ? 'Liked' : 'Like'}
+                                    </button>
+                                    <span className="LikeCount">{likeCount} likes</span>
+                                </div>
+                            </div>
+                            <div className="btn-comment">
+                                <button className="" onClick={handleComment}>
 
-                            </button>
-                            <span className="CommentCount"><CommentIcon></CommentIcon> {commentCount} comments</span>
+                                </button>
+                                <span className="CommentCount"><CommentIcon></CommentIcon> {commentCount} comments</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>)
+
+            })}
         </>
     );
 }
