@@ -3,7 +3,7 @@
     margin: 0 auto;
     margin-top: 2%;
     width: 650px;
-    height: 550px;
+    height: 570px;
     background-color: rgb(239, 234, 234);
     box-shadow: 12px 12px 45px grey;
 }
@@ -16,9 +16,14 @@
     display: block;
     margin: 0 auto;
     margin-top: 2%;
-    width: 450px;
+    width: 500px;
+    height: 40px;
+   
+}
+
+.feed-image{
+    width: 500px;
     height: 400px;
-    background-color: rgb(255, 255, 255);
 }
 
 .feed-header h5{
@@ -30,5 +35,52 @@
 .caption p{
     font-weight: lighter;
     opacity: 0.8;
-    margin-left: 10%;
+    margin-left: 7%;
 }
+
+.like-comment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin-top: 5%;
+  }
+  
+  .LikeButton {
+    display: flex;
+    align-items: center;
+  }
+  
+  button {
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 3px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  button.Liked {
+    background-color: #ed4956;
+    color: #fff;
+  }
+  
+  button.NotLiked {
+   
+    background-color: #fff;
+    color: #262626;
+    
+  }
+
+  .button.NotLiked :hover{
+    background-color: black;
+    color: white;
+  }
+  
+  .LikeCount {
+    margin-left: 8px;
+    font-size: 14px;
+    color: #8e8e8e;
+  }
+  
