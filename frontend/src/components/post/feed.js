@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Button } from "react";
+import React, { useState, useEffect, Button, Link } from "react";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/feed.css';
@@ -74,13 +74,14 @@ export default function PostWall() {
                                         {isLiked ? 'Liked' : 'Like'}
                                     </button>
                                     <span className="LikeCount">{likeCount} likes</span>
+                                    &nbsp;&nbsp;&nbsp;
                                 </div>
                             </div>
                             <div className="btn-comment">
-                                <button className="" onClick={handleComment}>
-
+                                <button className="btnComment">
+                                <a href="comment">   <span className="CommentCount"><CommentIcon></CommentIcon> {commentCount} comments</span></a>
                                 </button>
-                                <span className="CommentCount"><CommentIcon></CommentIcon> {commentCount} comments</span>
+                          
                             </div>
                         </div>
                     </div>

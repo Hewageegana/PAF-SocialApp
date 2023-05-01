@@ -84,3 +84,7 @@
     color: #8e8e8e;
   }
   
+  .btnComment a{
+  text-decoration: none;
+  margin-left: 10px;
+  }

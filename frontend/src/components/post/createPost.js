@@ -8,19 +8,19 @@ import loginimg from '../../Assets/images/photo1.jpeg'
 
 export default function CreatePost() {
     const [post, setPost] = useState([]);
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState(null);
     const [description, setDesc] = useState("");
 
 
     const AddPost = (event) => {
-        event.preventDefault();
+         event.preventDefault();
         const config = {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         };
         const data = new FormData();
-        const [image, setImage] = useState("");
+        
         data.append('image', image);
         data.append('postDTOString', {
             "postDescription": description
@@ -28,6 +28,7 @@ export default function CreatePost() {
         axios.post('/social-media-domain/users/304cccfe-a431-4330-810c-2fd288346dab/posts', data, config)
             .then(response => console.log(response.data))
             .catch(error => console.error(error));
+        console.log("post addfhfhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
     };
 
     return (
@@ -40,7 +41,7 @@ export default function CreatePost() {
                         </div>
                         <div className="col-lg-6">
                             <h1>Publish your Post here</h1>
-                            <form className="publishPost">
+                            <form className="publishPost"  onSubmit={AddPost} >
                                 <div className="col-lg-7 ">
                                     <div class="input-group">
                                         <input type="file" class="form-control" id="inputGroupFile04" onChange={(e)=>{
@@ -59,7 +60,7 @@ export default function CreatePost() {
                                           />
                                         <label for="floatingTextarea2">What's on your mind?</label>
                                     </div>
-                                    <button type="button" id="btn-publish" onClick={AddPost} class="btn btn-outline-primary">Publish</button>
+                                    <button type="submit" id="btn-publish"class="btn btn-outline-primary">Publish</button>
                                 </div>
                             </form>
                         </div>
