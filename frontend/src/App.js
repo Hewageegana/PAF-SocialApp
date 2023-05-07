@@ -7,7 +7,7 @@ import header from "./components/common/header";
 import PostWall from "./components/post/feed";
 import CreatePost from "./components/post/createPost";
 import AddComment from "./components/comment/addComment";
-import CreateStatus from "./components/status/createStatus";
+import CreateStatus from "./components/status/Status";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
 import { useState } from "react";
