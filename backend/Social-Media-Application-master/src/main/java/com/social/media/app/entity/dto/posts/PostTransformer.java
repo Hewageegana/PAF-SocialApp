@@ -2,6 +2,7 @@ package com.social.media.app.entity.dto.posts;
 import com.social.media.app.entity.dto.comments.CommentTransformer;
 import com.social.media.app.entity.model.Post;
 import com.social.media.app.entity.model.UserProfile;
+import com.social.media.app.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,6 +17,7 @@ public class PostTransformer {
         post.setPostDescription(postDTO.getPostDescription());
         post.setImageData(postDTO.getImageData());
         post.setPostedBy(profile);
+        post.setUserName(profile.getProfileName());
         post.setCommentsList(new ArrayList<>());
         post.setLikedUserProfiles(new HashSet<>());
         return post;
@@ -43,8 +45,10 @@ public class PostTransformer {
         postDTO.setPostDescription(post.getPostDescription());
         //postDTO.setImageData(post.getImageData());
         postDTO.setPostedBy(post.getPostedBy().getProfileId());
+        postDTO.setUserName(post.getUserName());
         postDTO.setCommentsList(CommentTransformer.commentsDTOList(post.getCommentsList()));
         postDTO.setLikedUserProfilesMap(toLikedProfileMap(post));
+        postDTO.setImageData(ImageUtils.decompressImage(post.getImageData()));
         return postDTO;
     }
 

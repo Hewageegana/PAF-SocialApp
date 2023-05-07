@@ -31,8 +31,10 @@ public class Post {
 
     private String postDescription;
 
+    private String userName;
+
     @Lob
-    @Column(name = "imageData", length = 1000)
+    @Column(name = "imageData", length = 100000)
     private byte[] imageData;
 
     @ManyToOne
@@ -56,6 +58,14 @@ public class Post {
 
     @UpdateTimestamp
     private Date updatedDate;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     /**
      * @return value of id

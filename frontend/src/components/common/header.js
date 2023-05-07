@@ -4,10 +4,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/login.css';
 import '../css/post.css';
 import '../css/header.css';
+import { GoogleLogout } from "react-google-login";
+import { client_id } from "../../constants";
 
 
 
 export default function header() {
+
+    const onLogout = () => {
+        localStorage.removeItem('loginData');
+        window.location = "/"
+    }
+
     return (
         <>
             <div>
@@ -21,10 +29,10 @@ export default function header() {
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                        <a class="nav-link active" aria-current="page" href="/">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Link</a>
+                                        <a class="nav-link" href="/post">Create Post</a>
                                     </li>
                                 
                                     <li class="nav-item">
@@ -32,8 +40,11 @@ export default function header() {
                                     </li>
                                 </ul>
                                 <form class="d-flex">
-                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                    <button class="btn btn-outline-success" type="submit">Search</button>
+                                <GoogleLogout
+                                            clientId={client_id}
+                                            buttonText="Logout"
+                                            onLogoutSuccess={onLogout}
+                                        />
                                 </form>
                             </div>
                         </div>

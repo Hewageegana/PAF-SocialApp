@@ -8,7 +8,17 @@ public class CommentsDTO {
 
     private String commentedBy;
 
+    private String commentedName;
+
     private String commentText;
+
+    public String getCommentedName() {
+        return commentedName;
+    }
+
+    public void setCommentedName(String commentedName) {
+        this.commentedName = commentedName;
+    }
 
     /**
      * @return value of commentId

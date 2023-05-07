@@ -15,9 +15,19 @@ public class PostDTO {
 
     private String postedBy;
 
+    private String userName;
+
     private List<CommentsDTO> commentsDTOList;
 
     private Map<String, String> likedUserProfilesMap;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     /**
      * @return value of id

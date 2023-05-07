@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, String> {
 
-    @Query("FROM Post p WHERE p.postedBy.profileId = ?1")
+    @Query("FROM Post p")
     List<Post> findAllByProfileId(String profileId);
 
     @Query("FROM Post p WHERE p.id = ?1 AND p.postedBy.profileId = ?2")
