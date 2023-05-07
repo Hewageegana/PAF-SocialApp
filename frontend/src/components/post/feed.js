@@ -9,6 +9,7 @@ import { base_URL } from "../../constants";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditOutlineTwoToneIcon from "@mui/icons-material/ModeEditOutlineTwoTone";
 import swal from "sweetalert";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 
@@ -97,7 +98,7 @@ export default function PostWall() {
                                 <div style={{ width: '80%', flexGrow: '1' }}>
                                     <div className="feed-header">
                                         <br />
-                                        <h5>{item.userName}</h5>
+                                        <h5><AccountCircleIcon/>{item.userName}</h5>
                                     </div>
                                     <div className="caption">
                                         <p>{item.postDescription}</p>
