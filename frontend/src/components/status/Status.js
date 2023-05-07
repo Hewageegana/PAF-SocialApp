@@ -3,9 +3,11 @@ import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/login.css';
 import '../css/post.css';
-import loginimg from '../../Assets/images/photo1.jpeg'
 import food from '../../Assets/images/food.jpg'
+import food1 from '../../Assets/images/food1.jpg'
+import food2 from '../../Assets/images/food2.jpg'
 import '../css/status.css'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 export default function CreateStatus() {
@@ -37,12 +39,13 @@ export default function CreateStatus() {
                         <div className="card">
                             <img src={food} className="card-img-top" alt="..." />
                             <div className="card-body">
-                                <h5 className="card-title">Rusiru Hewageegana</h5>
-                                <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <h5 className="card-title"><AccountCircleIcon/>foodie app</h5>
+                                <p className="card-text">Indulging in a delicious feast with great company.taste like a heaven recomended for foodies</p>
                                 <button type="button" class="btn btn-danger">DELETE</button>
                             </div>
                         </div>
                     </div>
+                   
 
                 </div>
             </div>
