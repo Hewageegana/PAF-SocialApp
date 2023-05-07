@@ -23,6 +23,7 @@ public class CommentTransformer {
         commentsDTO.setCommentText(comments.getCommentText());
         commentsDTO.setPostId(comments.getPost().getId());
         commentsDTO.setCommentedBy(comments.getCommentedBy().getProfileId());
+        commentsDTO.setCommentedName(comments.getCommentedBy().getProfileName());
         return commentsDTO;
     }
 

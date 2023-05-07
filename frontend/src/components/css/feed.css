@@ -3,13 +3,14 @@
     margin: 0 auto;
     margin-top: 2%;
     width: 650px;
-    height: 570px;
-    background-color: rgb(239, 234, 234);
+    height: auto;
+    background-color: #fff;
     box-shadow: 12px 12px 45px grey;
 }
 .auth-cap{
-    margin-top: 4%;
-    margin-left: 5%;
+    /* margin-top: 4%;
+    margin-left: 5%; */
+    padding-inline-start: 5%;
 }
 
 .feed-img{
@@ -21,10 +22,10 @@
    
 }
 
-.feed-image{
-    width: 500px;
-    height: 400px;
-}
+/* .feed-image{
+    width: 100%;
+    height: auto;
+} */
 
 .feed-header h5{
     font-size: large;
@@ -42,8 +43,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    margin-top: 5%;
+    /* height: 100vh; */
+    /* margin-top: 5%; */
   }
   
   .LikeButton {

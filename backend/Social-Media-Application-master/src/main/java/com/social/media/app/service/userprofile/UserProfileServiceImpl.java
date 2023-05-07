@@ -65,7 +65,7 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Override
     public UserProfileDTO findUserProfile(final String profileId) {
 
-        Optional<UserProfile> profile = userProfileRepository.findById(profileId);
+        Optional<UserProfile> profile = userProfileRepository.findUserByUserId(profileId);
 
         if (profile.isEmpty()) {
             throw new NotFoundException(ExceptionCodes.USER_PROFILE_NOT_FOUND.name(),

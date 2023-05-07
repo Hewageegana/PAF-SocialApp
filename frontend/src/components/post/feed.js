@@ -6,6 +6,9 @@ import feedImg from '../../Assets/images/loginIMG.png'
 import 'material-icons/iconfont/material-icons.css';
 import CommentIcon from '@mui/icons-material/Comment';
 import { base_URL } from "../../constants";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeEditOutlineTwoToneIcon from "@mui/icons-material/ModeEditOutlineTwoTone";
+
 
 
 
@@ -16,76 +19,110 @@ export default function PostWall() {
 
     const [post, setPost] = useState([]);
     const [postList, setPostList] = useState([]);
+    const [loginData, setLoginData] = useState(
+        localStorage.getItem("loginData") ? JSON.parse(localStorage.getItem("loginData")) : null
+    );
 
 
     useEffect(() => {
-        const getPosts = async () => {
-            const res = await axios
-                .get("/social-media-domain/users/304cccfe-a431-4330-810c-2fd288346dab/posts")
-                .then((res) => {
-                    setPostList(res.data);
-                    res.data.map(item => {
-                        console.log(item);
-                    })
 
-                })
-                .catch(() => { });
-        };
         getPosts();
     }, []);
+    const getPosts = async () => {
+        const res = await axios
+            .get("/social-media-domain/users/304cccfe-a431-4330-810c-2fd288346dab/posts")
+            .then((res) => {
+                setPostList(res.data);
+            })
+            .catch(() => { });
+    };
 
 
-    function handleLike() {
-        if (isLiked) {
-            setLikeCount(likeCount - 1);
+    function handleLike(item) {
+        if (item.likedUserProfilesMap.hasOwnProperty(loginData.profileId)) {
+            axios.get(`/social-media-domain/users/${loginData.profileId}/posts/${item.id}/unlike`)
+                .then((res) => {
+                    getPosts()
+                })
+                .catch(() => { });
         } else {
-            setLikeCount(likeCount + 1);
+            axios.get(`/social-media-domain/users/${loginData.profileId}/posts/${item.id}/like`)
+                .then((res) => {
+                    getPosts()
+                })
+                .catch(() => { });
         }
-        setIsLiked(!isLiked);
+
+        // if (isLiked) {
+        //     setLikeCount(likeCount - 1);
+        // } else {
+        //     setLikeCount(likeCount + 1);
+        // }
+        // setIsLiked(!isLiked);
     }
 
     function handleComment() {
         setCommentCount(commentCount + 1);
     }
 
+
+    const onClickPost = (item) => {
+        window.location = `/comment/${item.id}`
+    }
+
     return (
         <>
-            {postList?.map((item) => {
-
+            {postList?.map((item, index) => {
+                // console.log(item.likedUserProfilesMap.hasOwnProperty(item.id))
                 return (
-                <div className="feed">
-                    <div className="post-container">
-                        <div className="auth-cap">
-                            <div className="feed-header">
-                                <br />
-                                <h5>{item.postedBy}</h5>
-                            </div>
-                            <div className="caption">
-                                <p>{item.postDescription}</p>
-                            </div>
-                        </div>
-                        <div className="feed-img">
-                            <img src={item.imageData} className="feed-image" alt=""></img>
-                        </div>
-                        <div className="like-comment">
-                            <div className="LikeButtonContainer">
-                                <div className="LikeButton">
-                                    <button className={isLiked ? 'Liked' : 'NotLiked'} onClick={handleLike}>
-                                        {isLiked ? 'Liked' : 'Like'}
+                    <div className="feed" key={index}>
+                        <div className="post-container">
+                            <div className="auth-cap" style={{ width: '100%', flexDirection: 'row', display: 'flex' }}>
+                                <div style={{ width: '80%', flexGrow: '1' }}>
+                                    <div className="feed-header">
+                                        <br />
+                                        <h5>{item.userName}</h5>
+                                    </div>
+                                    <div className="caption">
+                                        <p>{item.postDescription}</p>
+                                    </div>
+                                </div>
+                               {item.postedBy === loginData.profileId && <div style={{ width: '20%', alignItems: 'center', justifyContent: 'space-evenly', display: 'flex' }}>
+                                    <button style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(236, 239, 241)' }}>
+                                        <DeleteIcon sx={{ color: "#B71C1C" }} />
                                     </button>
-                                    <span className="LikeCount">{likeCount} likes</span>
-                                    &nbsp;&nbsp;&nbsp;
+                                    <button style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(236, 239, 241)' }}>
+                                        <ModeEditOutlineTwoToneIcon />
+                                    </button>
+                                </div>}
+
+                            </div>
+                            <div style={{ display:'flex', width: '100%', height: '400px', alignItems: 'center', justifyContent: 'center'}}>
+                                <img src={`data:image/png;base64,${item.imageData}`} className="feed-image" style={{ objectFit: 'cover', objectPosition: 'center',  width: '100%', height: '100%'}} alt="Image"></img>
+
+                            </div>
+                            {/* <div className="feed-img">
+                                <img src={`data:image/png;base64,${item.imageData}`} className="feed-image" alt="Image"></img>
+                            </div> */}
+                            <div className="like-comment" style={{ padding: '20px'}}>
+                                <div className="LikeButtonContainer">
+                                    <div className="LikeButton">
+                                        <button className={item.likedUserProfilesMap.hasOwnProperty(loginData.profileId) ? 'Liked' : 'NotLiked'} onClick={() => handleLike(item)}>
+                                            {item.likedUserProfilesMap.hasOwnProperty(loginData.profileId) ? 'Liked' : 'Like'}
+                                        </button>
+                                        <span className="LikeCount">{Object.keys(item.likedUserProfilesMap).length} likes</span>
+                                        &nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </div>
+                                <div className="btn-comment">
+                                    <button className="btnComment">
+                                        <a href={`/comment/${item.id}`}>   <span className="CommentCount"><CommentIcon></CommentIcon> {item.commentsList.length} comments</span></a>
+                                    </button>
+
                                 </div>
                             </div>
-                            <div className="btn-comment">
-                                <button className="btnComment">
-                                <a href="comment">   <span className="CommentCount"><CommentIcon></CommentIcon> {commentCount} comments</span></a>
-                                </button>
-                          
-                            </div>
                         </div>
-                    </div>
-                </div>)
+                    </div>)
 
             })}
         </>

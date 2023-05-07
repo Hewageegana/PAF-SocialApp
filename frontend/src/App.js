@@ -8,22 +8,74 @@ import PostWall from "./components/post/feed";
 import CreatePost from "./components/post/createPost";
 import AddComment from "./components/comment/addComment";
 import CreateStatus from "./components/status/createStatus";
+import { gapi } from "gapi-script";
+import { useEffect } from "react";
+import { useState } from "react";
+import { client_id } from "./constants";
+import UpdatePost from "./components/post/updatePost";
 
 function App() {
+
+  const [loginData, setLoginData] = useState(
+    localStorage.getItem("loginData") ? JSON.parse(localStorage.getItem("loginData")) : null
+  );
+
+  useEffect(() => {
+    console.log(loginData)
+    window.addEventListener("storage", handleLocalStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleLocalStorageChange);
+    };
+  }, []);
+
+  const handleLocalStorageChange = () => {
+    setLoginData(localStorage.getItem("loginData") ? JSON.parse(localStorage.getItem("loginData")) : null);
+  };
+
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: "391312029550-eqbfuurb8q1nrdo5edp4oheck37eabud.apps.googleusercontent.com",
+        scope: "",
+        client_id: "391312029550-eqbfuurb8q1nrdo5edp4oheck37eabud.apps.googleusercontent.com",
+      })
+    }
+
+    gapi.load('client:auth2', start)
+  })
+
+  function PageNotFound() {
+  	return (
+    	<div>
+      		<p>404 Page not found</p>
+    	</div>
+  	);
+}
+
   return (
     <Router>
-      <div>
-        <Route path="/head" exact component={header} />
+      {loginData ?(<div>
+        <Route path="/" component={header} />
+        <Route path="/post" exact component={CreatePost} />
+        <Route path="/status" exact component={CreateStatus} />
+        <Route path="/" exact component={PostWall} />
+        <Route path="/comment/:id" exact component={AddComment} />
+        <Route path="/update-post/:id" exact component={UpdatePost} />
+
+      </div>) :(<div>
         <Route path="/" exact component={Authentication} />
         <Route path="/register" exact component={Register} />
+      </div>)}
+      {/* <div>
+        <Route path="/head" exact component={header} />
         <Route path="/post" exact component={CreatePost} />
         <Route path="/status" exact component={CreateStatus} />
         <Route path="/wall" exact component={PostWall} />
         <Route path="/comment" exact component={AddComment} />
-        
+        <Route path="/" exact component={Authentication} />
+        <Route path="/register" exact component={Register} />
+      </div> */}
 
-
-      </div>
     </Router>
   );
 }
