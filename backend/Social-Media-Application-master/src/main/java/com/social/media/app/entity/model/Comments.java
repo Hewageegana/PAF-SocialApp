@@ -30,11 +30,21 @@ public class Comments {
 
     private String commentText;
 
+    private String commentedName;
+
     @CreationTimestamp
     private Date createdDate;
 
     @UpdateTimestamp
     private Date updatedDate;
+
+    public String getCommentedName() {
+        return commentedName;
+    }
+
+    public void setCommentedName(String commentedName) {
+        this.commentedName = commentedName;
+    }
 
     /**
      * @return value of commentId
