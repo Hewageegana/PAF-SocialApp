@@ -8,6 +8,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import { base_URL } from "../../constants";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditOutlineTwoToneIcon from "@mui/icons-material/ModeEditOutlineTwoTone";
+import swal from "sweetalert";
 
 
 
@@ -69,6 +70,21 @@ export default function PostWall() {
     const onClickPost = (item) => {
         window.location = `/comment/${item.id}`
     }
+    
+    const deletePost = async(item) => {
+        axios.delete(`/social-media-domain/users/${loginData.profileId}/posts/${item.id}`)
+        .then((res) => {
+            swal({
+                title: "Success!",
+                text: "Successfully deleted the post",
+                icon: "success",
+                button: "Ok",
+              });
+            getPosts()
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 
     return (
         <>
@@ -88,7 +104,7 @@ export default function PostWall() {
                                     </div>
                                 </div>
                                {item.postedBy === loginData.profileId && <div style={{ width: '20%', alignItems: 'center', justifyContent: 'space-evenly', display: 'flex' }}>
-                                    <button style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(236, 239, 241)' }}>
+                                    <button onClick={() => deletePost(item)} style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(236, 239, 241)' }}>
                                         <DeleteIcon sx={{ color: "#B71C1C" }} />
                                     </button>
                                     <button style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(236, 239, 241)' }}>
