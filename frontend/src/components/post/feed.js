@@ -68,8 +68,8 @@ export default function PostWall() {
     }
 
 
-    const onClickPost = (item) => {
-        window.location = `/comment/${item.id}`
+    const onUpdatePost = (item) => {
+        window.location = `/update-post/${item.id}`
     }
     
     const deletePost = async(item) => {
@@ -108,7 +108,7 @@ export default function PostWall() {
                                     <button onClick={() => deletePost(item)} style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(236, 239, 241)' }}>
                                         <DeleteIcon sx={{ color: "#B71C1C" }} />
                                     </button>
-                                    <button style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(236, 239, 241)' }}>
+                                    <button onClick={() => onUpdatePost(item)} style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(236, 239, 241)' }}>
                                         <ModeEditOutlineTwoToneIcon />
                                     </button>
                                 </div>}

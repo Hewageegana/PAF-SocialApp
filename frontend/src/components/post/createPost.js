@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/login.css';
 import '../css/post.css';
 import loginimg from '../../Assets/images/photo1.jpeg'
+import swal from "sweetalert";
 
 
 export default function CreatePost() {
@@ -58,9 +59,9 @@ export default function CreatePost() {
         <>
             <div className="Form my-4 mx-2">
                 <div className="container">
-                    <div className="row g-0" id="row" >
+                    <div className="row g-0" id="row" style={{ minHeight: '500px'}}>
                         <div className="col-lg-4">
-                            <img src={loginimg} className="img-fluid" alt=""></img>
+                            <img id="image-preview" src={loginimg} style={{objectFit: 'cover', objectPosition: 'center', objectFit:'cover', width: '100%', height: '100%'}} className="img-fluid g-0" alt=""></img>
                         </div>
                         <div className="col-lg-6">
                             <h1>Publish your Post here</h1>
@@ -68,8 +69,27 @@ export default function CreatePost() {
                                 <div className="col-lg-7 ">
                                     <div class="input-group">
                                         <input type="file" class="form-control" id="inputGroupFile04" onChange={(e) => {
-                                            const files = e.target.files
-                                            setImage(files[0])
+                                            const file = e.target.files[0];
+
+                                            const reader = new FileReader();
+
+                                            const fileSize = file.size; // in bytes
+                                            const maxSize = 1024 * 1024; // 1 MB
+
+                                            if (fileSize > maxSize) {
+                                                swal("Image size is too big!");
+                                                e.target.value = null; // reset the file input
+                                                return;
+                                            }
+
+                                            reader.onload = function (e) {
+                                                const imagePreview = document.getElementById("image-preview");
+                                                imagePreview.src = e.target.result;
+                                                imagePreview.style.display = "block";
+                                            };
+
+                                            reader.readAsDataURL(file);
+                                            setImage(file)
                                         }} aria-describedby="inputGroupFileAddon04" aria-label="Upload" />
 
                                     </div>

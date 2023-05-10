@@ -26,7 +26,7 @@ public class PostTransformer {
     public static Post toUpdatePost(Post existingPost, PostDTO postDTO) {
 
         existingPost.setPostDescription(postDTO.getPostDescription());
-        existingPost.setImageData(postDTO.getImageData());
+        existingPost.setImageData(postDTO.getImageData() == null ? existingPost.getImageData() : postDTO.getImageData());
         return existingPost;
     }
 
