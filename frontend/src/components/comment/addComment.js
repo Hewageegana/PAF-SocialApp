@@ -12,7 +12,6 @@ import { useParams } from "react-router-dom";
 import { Audio, Circles } from "react-loader-spinner";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditOutlineTwoToneIcon from "@mui/icons-material/ModeEditOutlineTwoTone";
-import swal from "sweetalert";
 import CloseIcon from "@mui/icons-material/Close";
 
 
@@ -30,7 +29,6 @@ export default function AddComment() {
     const scrollRef = useRef(null);
 
     useEffect(() => {
-
         getPosts();
     }, []);
     const getPosts = async () => {
@@ -139,18 +137,9 @@ export default function AddComment() {
         )
     }
     else {
-        console.log(postList)
         return (
             <>
                 <div className="comment-container" ref={scrollRef}>
-                    {/* <div className="user-detail">
-                        <div className="user-name">
-                            <h5><AccountCircleIcon /> &nbsp;{postList.userName}</h5>
-                        </div>
-                        <div className="usr-caption">
-                            <p>{postList.postDescription}</p>
-                        </div>
-                    </div> */}
                     <div className="auth-cap" style={{ width: '100%', flexDirection: 'row', display: 'flex' }}>
                         <div style={{ width: '80%', flexGrow: '1' }}>
                             <div className="feed-header">
@@ -174,30 +163,6 @@ export default function AddComment() {
                     <div style={{ display: 'flex', width: '100%', height: '400px', alignItems: 'center', justifyContent: 'center' }}>
                         <img src={`data:image/png;base64,${postList.imageData}`} className="comment-image" style={{ objectFit: 'cover', objectPosition: 'center', width: '100%', height: '100%' }} alt="Image"></img>
                     </div>
-                    {/* {postList.commentsList?.map((item, index) => {
-                        return (
-                            <div className="comment-section">
-                                <div className="user-name">
-                                    <h7><AccountCircleIcon /> {item.commentedName}</h7>
-                                </div>
-                                <div className="comment-view">
-                                    <p>{item.commentText}</p>
-                                </div>
-                            </div>
-                        )
-                    })} */}
-                    {/* <div className="comment-list-container">
-                        <h2>Comments</h2>
-                        <div className="comment-list">
-                            {postList.commentsList?.map((comment, index) => (
-                                <div key={index} className="comment-container2">
-                                    <p className="username">{comment.commentedName}</p>
-                                    <p className="comment-text">{comment.commentText}</p>
-                                    <button className="delete-button" onClick={() => handleDelete(index)}>Delete</button>
-                                </div>
-                            ))}
-                        </div>
-                    </div> */}
                     <div className="comment-list-container" style={{ marginTop: 10 }}>
                         <h2>Comments</h2>
                         <div className="comment-list">
@@ -252,18 +217,6 @@ export default function AddComment() {
 
                         </form>
                     </div>
-
-                    {/* <div className="comment-field">
-                        <div className="">
-                            <input type="text" value={comment} class="comment-input" id="exampleFormControlInput1" placeholder="type ur comment here....." onChange={(e) => {
-                                setComment(e.target.value)
-                            }} />
-                        </div>
-                        <div>
-                            &nbsp;&nbsp;&nbsp;&nbsp; <button onClick={addComment}><SendIcon color="primary" /></button>
-                        </div>
-                    </div> */}
-
                     <span className="op">faadddddddddddddddddv</span>
                 </div>
             </>

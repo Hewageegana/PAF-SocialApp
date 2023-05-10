@@ -7,12 +7,14 @@ import header from "./components/common/header";
 import PostWall from "./components/post/feed";
 import CreatePost from "./components/post/createPost";
 import AddComment from "./components/comment/addComment";
-import CreateStatus from "./components/status/Status";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
 import { useState } from "react";
 import { client_id } from "./constants";
 import UpdatePost from "./components/post/updatePost";
+import Status from "./components/status/Status";
+import CreateStatus from "./components/status/createStatus";
+import UpdateStatus from "./components/status/updateStatus";
 
 function App() {
 
@@ -21,7 +23,6 @@ function App() {
   );
 
   useEffect(() => {
-    console.log(loginData)
     window.addEventListener("storage", handleLocalStorageChange);
     return () => {
       window.removeEventListener("storage", handleLocalStorageChange);
@@ -57,11 +58,12 @@ function App() {
       {loginData ?(<div>
         <Route path="/" component={header} />
         <Route path="/post" exact component={CreatePost} />
-        <Route path="/status" exact component={CreateStatus} />
+        <Route path="/status" exact component={Status} />
+        <Route path="/create-status" exact component={CreateStatus} />
         <Route path="/" exact component={PostWall} />
         <Route path="/comment/:id" exact component={AddComment} />
         <Route path="/update-post/:id" exact component={UpdatePost} />
-
+        <Route path="/update-status/:id" exact component={UpdateStatus} />
       </div>) :(<div>
         <Route path="/" exact component={Authentication} />
         <Route path="/register" exact component={Register} />

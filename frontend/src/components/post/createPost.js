@@ -22,21 +22,6 @@ export default function CreatePost() {
         }
 
         const newPost = createPost(user.profileId, postDTO, image)
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data'
-        //     }
-        // };
-        // const data = new FormData();
-
-        // data.append('image', image);
-        // data.append('postDTOString', {
-        //     "postDescription": description
-        // });
-        // axios.post('/social-media-domain/users/304cccfe-a431-4330-810c-2fd288346dab/posts', data, config)
-        //     .then(response => console.log(response.data))
-        //     .catch(error => console.error(error));
-        // console.log("post addfhfhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
     };
 
     const createPost = async (profileId, postDTO, newImage) => {
@@ -48,7 +33,6 @@ export default function CreatePost() {
             method: 'POST',
             body: formData
         }).then(response => {
-            console.log(response);
             window.location = "/"
         }).catch(error => {
             console.error(error);

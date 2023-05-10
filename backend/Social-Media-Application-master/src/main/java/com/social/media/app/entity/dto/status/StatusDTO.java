@@ -6,6 +6,10 @@ public class StatusDTO {
 
     private String statusContent;
 
+    private String userName;
+
+    private byte[] imageData;
+
     private String postedBy;
 
     /**
@@ -34,9 +38,28 @@ public class StatusDTO {
     public void setStatusContent(final String statusContent) {
         this.statusContent = statusContent;
     }
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     /**
      * @return value of postedBy
      */
+
+
     public String getPostedBy() {
         return postedBy;
     }

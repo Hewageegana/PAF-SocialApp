@@ -1,19 +1,17 @@
 package com.social.media.app.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.social.media.app.entity.dto.posts.PostDTO;
 import com.social.media.app.entity.dto.status.StatusDTO;
 import com.social.media.app.service.status.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 @RestController
 public class StatusController extends BaseController {
@@ -25,9 +23,13 @@ public class StatusController extends BaseController {
         consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     @ResponseBody
     public StatusDTO createStatus(HttpServletResponse response,
-        @PathVariable("profileId") String profileId, @RequestBody StatusDTO statusDTO) {
+                                  @PathVariable("profileId") String profileId, @RequestPart String stringStatusDTO,
+                                  @RequestPart("image") MultipartFile file) throws IOException {
 
-        final StatusDTO responseDTO = statusService.createStatus(statusDTO, profileId);
+        ObjectMapper objectMapper = new ObjectMapper();
+        StatusDTO statusDTO = objectMapper.readValue(stringStatusDTO, StatusDTO.class);
+
+        final StatusDTO responseDTO = statusService.createStatus(statusDTO, profileId, file);
 
         setStatusHeadersToSuccess(response);
 
@@ -37,9 +39,12 @@ public class StatusController extends BaseController {
     @RequestMapping(value = "/users/{profileId}/status/{statusId}", method = RequestMethod.PUT)
     @ResponseBody
     public void updateStatus(HttpServletResponse response, @PathVariable("profileId") String profileId,
-        @PathVariable("statusId") String statusId, @RequestBody StatusDTO statusDTO) {
+        @PathVariable("statusId") String statusId, @RequestPart String stringStatusDTO,
+                             @RequestPart(value = "image", required = false) MultipartFile file) throws IOException {
 
-        statusService.updateStatus(profileId, statusId, statusDTO);
+        ObjectMapper objectMapper = new ObjectMapper();
+        StatusDTO statusDTO = objectMapper.readValue(stringStatusDTO, StatusDTO.class);
+        statusService.updateStatus(profileId, statusId, statusDTO, file);
 
         setStatusHeadersToSuccess(response);
     }

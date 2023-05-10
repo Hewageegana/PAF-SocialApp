@@ -5,11 +5,14 @@ import com.social.media.app.entity.model.Status;
 import com.social.media.app.entity.model.UserProfile;
 import com.social.media.app.repository.StatusRepository;
 import com.social.media.app.repository.UserProfileRepository;
+import com.social.media.app.utils.ImageUtils;
 import com.social.media.app.utils.exceptions.ExceptionCodes;
 import com.social.media.app.utils.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,9 +25,11 @@ public class StatusServiceImpl implements StatusService {
     @Autowired
     private UserProfileRepository userProfileRepository;
     @Override
-    public StatusDTO createStatus(final StatusDTO createStatusDTO, final String userProfileId) {
+    public StatusDTO createStatus(final StatusDTO createStatusDTO, final String userProfileId, final MultipartFile file) throws IOException {
 
         Optional<UserProfile> profile = getUserProfile(userProfileId);
+
+        createStatusDTO.setImageData(ImageUtils.compressImage(file.getBytes()));
 
         Status status = StatusTransformer.toCreateStatus(createStatusDTO, profile.get());
 
@@ -33,9 +38,14 @@ public class StatusServiceImpl implements StatusService {
         return StatusTransformer.toStatusResponseDTO(savedStatus);
     }
     @Override
-    public void updateStatus(final String profileId, final String statusId, final StatusDTO updateStatusDTO) {
+    public void updateStatus(final String profileId, final String statusId, final StatusDTO updateStatusDTO, final MultipartFile file) throws IOException {
 
         getStatusById(statusId);
+
+        if (file != null){
+            updateStatusDTO.setImageData(ImageUtils.compressImage(file.getBytes()));
+        }
+
 
         final Status exisitingStatus = getStatusByUserProfile(profileId, statusId);
 
