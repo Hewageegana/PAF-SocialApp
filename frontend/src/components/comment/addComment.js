@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/login.css';
@@ -9,6 +9,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SendIcon from '@mui/icons-material/Send';
 import { useParams } from "react-router-dom";
 import { Audio, Circles } from "react-loader-spinner";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeEditOutlineTwoToneIcon from "@mui/icons-material/ModeEditOutlineTwoTone";
+import swal from "sweetalert";
+import CloseIcon from "@mui/icons-material/Close";
 
 
 export default function AddComment() {
@@ -17,9 +21,12 @@ export default function AddComment() {
     const [postList, setPostList] = useState(null);
     const [loginData, setLoginData] = useState(
         localStorage.getItem("loginData") ? JSON.parse(localStorage.getItem("loginData")) : null
-    );  
+    );
     const [comment, setComment] = useState("");
     const [commentId, setCommentId] = useState("");
+    const [isUpdate, setIsUpdate] = useState(false);
+
+    const scrollRef = useRef(null);
 
     useEffect(() => {
 
@@ -34,17 +41,84 @@ export default function AddComment() {
             .catch(() => { });
     };
 
-    const addComment = async() => {
+    const addComment = async (e) => {
+        e.preventDefault();
+        if(!comment){
+          swal("Empty Comment, Please Type Comment Before Send");
+          return
+        }
         const newComment = {
             "commentText": comment
         }
-        axios.post(`/social-media-domain/users/${loginData.profileId}/posts/${id}/comments`, newComment)
-        .then((res) =>{
-            getPosts()
-            setComment("")
-        }).catch(err => {
-            console.log(err)
+        if(isUpdate){
+            axios.put(`/social-media-domain/users/${loginData.profileId}/posts/${id}/comments/${commentId}`, newComment)
+            .then((res) => {
+                swal({
+                    title: "Success!",
+                    text: "Successfully updated the comment",
+                    icon: "success",
+                    button: "Ok",
+                  });
+                getPosts()
+                setComment("")
+                setCommentId("")
+                isUpdate(false)
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+        else{
+            axios.post(`/social-media-domain/users/${loginData.profileId}/posts/${id}/comments`, newComment)
+            .then((res) => {
+                swal({
+                    title: "Success!",
+                    text: "Successfully added the comment",
+                    icon: "success",
+                    button: "Ok",
+                  });
+                getPosts()
+                setComment("")
+            }).catch(err => {
+                console.log(err)
+            })
+        }
+
+    }
+
+    const onUpdatePost = (item) => {
+        window.location = `/update-post/${item.id}`
+    }
+
+    const deletePost = async (item) => {
+        axios.delete(`/social-media-domain/users/${loginData.profileId}/posts/${item.id}`)
+            .then((res) => {
+                swal({
+                    title: "Success!",
+                    text: "Successfully deleted the post",
+                    icon: "success",
+                    button: "Ok",
+                });
+                window.location.replace('/')
+            }).catch(err => {
+                console.log(err)
+            })
+    }
+
+    const handleDelete = (comment) => {
+        axios
+        .delete(`/social-media-domain/users/${loginData.profileId}/posts/${id}/comments/${comment.commentId}`)
+        .then((res) => {
+          swal({
+            title: "Success!",
+            text: "Successfully Deleted Comment",
+            icon: "success",
+            button: "Ok",
+          });
+          getPosts()
         })
+        .catch((e) => {
+          swal("Please fill Form correctly" + e);
+        });
     }
 
 
@@ -67,20 +141,39 @@ export default function AddComment() {
         console.log(postList)
         return (
             <>
-                <div className="comment-container">
-                    <div className="user-detail">
+                <div className="comment-container" ref={scrollRef}>
+                    {/* <div className="user-detail">
                         <div className="user-name">
                             <h5><AccountCircleIcon /> &nbsp;{postList.userName}</h5>
                         </div>
                         <div className="usr-caption">
                             <p>{postList.postDescription}</p>
                         </div>
-                    </div>
+                    </div> */}
+                    <div className="auth-cap" style={{ width: '100%', flexDirection: 'row', display: 'flex' }}>
+                        <div style={{ width: '80%', flexGrow: '1' }}>
+                            <div className="feed-header">
+                                <br />
+                                <h5>{postList.userName}</h5>
+                            </div>
+                            <div className="caption">
+                                <p>{postList.postDescription}</p>
+                            </div>
+                        </div>
+                        {postList.postedBy === loginData.profileId &&<div style={{ width: '20%', alignItems: 'center', justifyContent: 'space-evenly', display: 'flex' }}>
+                            <button onClick={() => deletePost(postList)} style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(236, 239, 241)' }}>
+                                <DeleteIcon sx={{ color: "#B71C1C" }} />
+                            </button>
+                            <button onClick={() => onUpdatePost(postList)} style={{ alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(236, 239, 241)' }}>
+                                <ModeEditOutlineTwoToneIcon />
+                            </button>
+                        </div>}
 
-                    <div className="comment-image-div">
-                        <img className="comment-image" src={`data:image/png;base64,${postList.imageData}`}></img>
                     </div>
-                    {postList.commentsList?.map((item, index) => {
+                    <div style={{ display: 'flex', width: '100%', height: '400px', alignItems: 'center', justifyContent: 'center' }}>
+                        <img src={`data:image/png;base64,${postList.imageData}`} className="comment-image" style={{ objectFit: 'cover', objectPosition: 'center', width: '100%', height: '100%' }} alt="Image"></img>
+                    </div>
+                    {/* {postList.commentsList?.map((item, index) => {
                         return (
                             <div className="comment-section">
                                 <div className="user-name">
@@ -91,18 +184,84 @@ export default function AddComment() {
                                 </div>
                             </div>
                         )
-                    })}
+                    })} */}
+                    {/* <div className="comment-list-container">
+                        <h2>Comments</h2>
+                        <div className="comment-list">
+                            {postList.commentsList?.map((comment, index) => (
+                                <div key={index} className="comment-container2">
+                                    <p className="username">{comment.commentedName}</p>
+                                    <p className="comment-text">{comment.commentText}</p>
+                                    <button className="delete-button" onClick={() => handleDelete(index)}>Delete</button>
+                                </div>
+                            ))}
+                        </div>
+                    </div> */}
+                    <div className="comment-list-container" style={{ marginTop: 10 }}>
+                        <h2>Comments</h2>
+                        <div className="comment-list">
+                            {postList.commentsList?.map((comment, index) => (
+                                <div key={index} className="comment-container2">
+                                    <div className="comment-header">
+                                        {/* <img src={comment.avatarUrl} alt={comment.commentedName} /> */}
+                                        <p>{comment.commentedName}</p>
+                                    </div>
+                                    <div className="comment-body">
+                                        <p>{comment.commentText}</p>
+                                    </div>
+                                    {comment.commentedBy === loginData.profileId &&<div className="comment-actions">
+                                        <button onClick={() => handleDelete(comment)}>Delete</button>
+                                        <span>·</span>
+                                        <button onClick={() => {
+                                            setComment(comment.commentText)
+                                            setCommentId(comment.commentId)
 
-                    <div className="comment-field">
+                                            scrollRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                                            setIsUpdate(true)
+                                        }}>Edit</button>
+                                        <span>·</span>
+                                        <span>{'lll'}</span>
+                                    </div>}
+                                </div>
+                            ))}
+                        </div>
+                        <form onSubmit={addComment} className="comment-input-container">
+                            <input
+                                type="text"
+                                placeholder="Write a comment..."
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                            />
+                            <div>
+                                <button type="submit" className="comment-input-container-submit" style={{ marginTop: 15, marginInlineEnd: 20 }}>{isUpdate ? "Update" : "Post"}</button>
+                                {isUpdate && (
+                                    <button
+                                        type="submit"
+                                        className="comment-input-container-close"
+                                        onClick={() => {
+                                            setIsUpdate(false);
+                                            setComment("");
+                                            setCommentId("");
+                                        }}
+                                    >
+                                        <CloseIcon />
+                                    </button>
+                                )}
+                            </div>
+
+                        </form>
+                    </div>
+
+                    {/* <div className="comment-field">
                         <div className="">
                             <input type="text" value={comment} class="comment-input" id="exampleFormControlInput1" placeholder="type ur comment here....." onChange={(e) => {
                                 setComment(e.target.value)
                             }} />
                         </div>
                         <div>
-                            &nbsp;&nbsp;&nbsp;&nbsp; <button onClick={addComment}><SendIcon color="primary"/></button>
+                            &nbsp;&nbsp;&nbsp;&nbsp; <button onClick={addComment}><SendIcon color="primary" /></button>
                         </div>
-                    </div>
+                    </div> */}
 
                     <span className="op">faadddddddddddddddddv</span>
                 </div>
