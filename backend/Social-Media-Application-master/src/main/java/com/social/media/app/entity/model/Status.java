@@ -4,12 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -23,6 +18,12 @@ public class Status {
 
     private String statusContent;
 
+    private String userName;
+
+    @Lob
+    @Column(name = "imageData", length = 100000)
+    private byte[] imageData;
+
     @ManyToOne
     @JoinColumn(name = "userProfileID")
     private UserProfile postedBy;
@@ -32,6 +33,14 @@ public class Status {
 
     @UpdateTimestamp
     private Date updatedDate;
+
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
 
     /**
      * @return value of id
@@ -97,5 +106,13 @@ public class Status {
      */
     public void setUpdatedDate(final Date updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

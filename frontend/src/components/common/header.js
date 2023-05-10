@@ -34,9 +34,11 @@ export default function header() {
                                     <li class="nav-item">
                                         <a class="nav-link" href="/post">Create Post</a>
                                     </li>
-                                
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                                        <a class="nav-link" href="/status" tabindex="-1" >Status</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/create-status" tabindex="-1" >Create Status</a>
                                     </li>
                                 </ul>
                                 <form class="d-flex">

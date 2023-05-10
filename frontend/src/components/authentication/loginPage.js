@@ -12,12 +12,7 @@ export default function Authentication() {
 
 
     const onSuccess = async (res) => {
-        console.log("Login success: Current user: ", res.profileObj)
-        // localStorage.setItem('loginData', JSON.stringify(res.profileObj));
-        // window.location.reload()
-
         const user = res.profileObj
-
         await axios.get(`/social-media-domain/users/${user.googleId}`)
             .then((result) => {
                 const UserData = {
@@ -27,39 +22,12 @@ export default function Authentication() {
                 }
                 localStorage.setItem('loginData', JSON.stringify(UserData));
                 window.location.reload()
-
-                // const arr = result.data?.filter(item => {
-                //     return item.userId === user.googleId
-                // })
-                // if (arr.length === 0) {
-                //     const newUser = {
-                //         "userId": user.googleId,
-                //         "profileName": user.name,
-                //         "age": 0,
-                //         "gender": ""
-
-                //     };
-                //     axios
-                //         .post("/social-media-domain/users", newUser)
-                //         .then(() => {
-                //             localStorage.setItem('loginData', JSON.stringify(user));
-                //             window.location.reload()
-                //         })
-                //         .catch((e) => {
-                //             swal("Error while registering New user" + e);
-                //         });
-                // }
-                // else {
-                //     localStorage.setItem('loginData', JSON.stringify(user));
-                //     window.location.reload()
-                // }
             }).catch((err) => {
                 const newUser = {
                     "userId": user.googleId,
                     "profileName": user.name,
                     "age": 0,
                     "gender": ""
-
                 };
                 axios
                     .post("/social-media-domain/users", newUser)

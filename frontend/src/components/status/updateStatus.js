@@ -8,51 +8,52 @@ import { useParams } from "react-router-dom";
 import swal from "sweetalert";
 
 
-export default function UpdateStatus() {
-    const [post, setPost] = useState([]);
+export default function UpdatePost() {
+    const [status, setStatus] = useState([]);
     const [image, setImage] = useState(null);
     const [description, setDesc] = useState("");
 
     const { id } = useParams();
     const [loginData, setLoginData] = useState(
         localStorage.getItem("loginData") ? JSON.parse(localStorage.getItem("loginData")) : null
-    );  
+    );
 
     useEffect(() => {
 
-        getPosts();
+        getStatus();
     }, []);
-    const getPosts = async () => {
+    const getStatus = async () => {
         const res = await axios
-            .get("/social-media-domain/posts/" + id)
+            .get("/social-media-domain/status/" + id)
             .then((res) => {
-                setPost(res.data);
-                setDesc(res.data.postDescription)
+                setStatus(res.data);
+                setDesc(res.data.statusContent)
             })
-            .catch(() => { });
+            .catch((err) => { console.log(err) });
     };
 
-    const AddPost = (event) => {
+    const UpdatePost = (event) => {
         event.preventDefault();
         const user = JSON.parse(localStorage.getItem('loginData'))
 
-        const postDTO = {
-            "postDescription": description.length === 0 ? post.postDescription : description
+        const statusDTO = {
+            "statusContent": description
         }
 
-        const newPost = createPost(user.profileId, postDTO, image)
+        const newStatus = createStatus(user.profileId, statusDTO, image)
+
     };
 
-    const createPost = async (profileId, postDTO, newImage) => {
+    const createStatus = async (profileId, statusDTO, newImage) => {
         const formData = new FormData();
-        formData.append('postDTOString', JSON.stringify(postDTO));
-        formData.append('image',  newImage);
+        formData.append('stringStatusDTO', JSON.stringify(statusDTO));
+        formData.append('image', newImage);
 
-        fetch( `/social-media-domain/users/${profileId}/posts/${id}`, {
+        fetch('/social-media-domain/users/' + profileId + '/status/' + id, {
             method: 'PUT',
             body: formData
         }).then(response => {
-            window.location = "/"
+            window.location.replace("/status")
         }).catch(error => {
             console.error(error);
         });
@@ -62,13 +63,13 @@ export default function UpdateStatus() {
         <>
             <div className="Form my-4 mx-2">
                 <div className="container">
-                    <div className="row g-0" id="row" style={{ minHeight: '500px'}}>
+                    <div className="row g-0" id="row" style={{ minHeight: '500px' }}>
                         <div className="col-lg-4">
-                            <img id="image-preview" src={`data:image/png;base64,${post.imageData}`} className="img-fluid g-0"  style={{objectFit: 'cover', objectPosition: 'center', objectFit:'cover', width: '100%', height: '100%'}} alt=""></img>
+                            <img id="image-preview" src={`data:image/png;base64,${status.imageData}`} className="img-fluid g-0" style={{ objectFit: 'cover', objectPosition: 'center', objectFit: 'cover', width: '100%', height: '100%' }} alt=""></img>
                         </div>
                         <div className="col-lg-6">
-                            <h1>Update your Post here</h1>
-                            <form className="publishPost" onSubmit={AddPost} >
+                            <h1>Update your Status here</h1>
+                            <form className="publishPost" onSubmit={UpdatePost} >
                                 <div className="col-lg-7 ">
                                     <div class="input-group">
                                         <input type="file" class="form-control" id="inputGroupFile04" onChange={(e) => {
@@ -78,21 +79,21 @@ export default function UpdateStatus() {
 
                                             const fileSize = file.size; // in bytes
                                             const maxSize = 1024 * 1024; // 1 MB
-                                          
+
                                             if (fileSize > maxSize) {
-                                              swal("File size is too big!");
-                                              e.target.value = null; // reset the file input
-                                              return;
+                                                swal("File size is too big!");
+                                                e.target.value = null; // reset the file input
+                                                return;
                                             }
                                             reader.onload = function (e) {
                                                 const imagePreview = document.getElementById("image-preview");
                                                 imagePreview.src = e.target.result;
                                                 imagePreview.style.display = "block";
-                                              };
-                                            
-                                              reader.readAsDataURL(file);
+                                            };
+
+                                            reader.readAsDataURL(file);
                                             setImage(file)
-                                        }} aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept="image/*"/>
+                                        }} aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept="image/*" />
 
                                     </div>
                                 </div>

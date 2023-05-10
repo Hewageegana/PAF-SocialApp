@@ -90,7 +90,6 @@ export default function PostWall() {
     return (
         <>
             {postList?.map((item, index) => {
-                // console.log(item.likedUserProfilesMap.hasOwnProperty(item.id))
                 return (
                     <div className="feed" key={index}>
                         <div className="post-container">
@@ -118,9 +117,6 @@ export default function PostWall() {
                                 <img src={`data:image/png;base64,${item.imageData}`} className="feed-image" style={{ objectFit: 'cover', objectPosition: 'center',  width: '100%', height: '100%'}} alt="Image"></img>
 
                             </div>
-                            {/* <div className="feed-img">
-                                <img src={`data:image/png;base64,${item.imageData}`} className="feed-image" alt="Image"></img>
-                            </div> */}
                             <div className="like-comment" style={{ padding: '20px'}}>
                                 <div className="LikeButtonContainer">
                                     <div className="LikeButton">

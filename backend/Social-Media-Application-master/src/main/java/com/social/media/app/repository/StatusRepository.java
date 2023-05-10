@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface StatusRepository extends JpaRepository<Status, String> {
 
-    @Query("FROM Status p WHERE p.postedBy.profileId = ?1")
+    @Query("FROM Status p")
     List<Status> findAllByProfileId(String profileId);
 
     @Query("FROM Status p WHERE p.id = ?1 AND p.postedBy.profileId = ?2")
