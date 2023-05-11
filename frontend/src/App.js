@@ -15,6 +15,7 @@ import UpdatePost from "./components/post/updatePost";
 import Status from "./components/status/Status";
 import CreateStatus from "./components/status/createStatus";
 import UpdateStatus from "./components/status/updateStatus";
+import Profile from "./components/profile/userProfile";
 
 function App() {
 
@@ -64,6 +65,8 @@ function App() {
         <Route path="/comment/:id" exact component={AddComment} />
         <Route path="/update-post/:id" exact component={UpdatePost} />
         <Route path="/update-status/:id" exact component={UpdateStatus} />
+        <Route path="/profile" exact component={Profile} />
+
       </div>) :(<div>
         <Route path="/" exact component={Authentication} />
         <Route path="/register" exact component={Register} />

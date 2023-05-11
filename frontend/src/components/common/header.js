@@ -40,6 +40,9 @@ export default function header() {
                                     <li class="nav-item">
                                         <a class="nav-link" href="/create-status" tabindex="-1" >Create Status</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/profile" tabindex="-1" >Profile</a>
+                                    </li>
                                 </ul>
                                 <form class="d-flex">
                                 <GoogleLogout
