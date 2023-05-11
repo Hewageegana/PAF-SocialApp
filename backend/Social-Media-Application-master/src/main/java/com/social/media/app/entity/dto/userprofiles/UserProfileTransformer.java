@@ -19,17 +19,21 @@ public class UserProfileTransformer {
         userProfile.setPostList(new ArrayList<>());
         userProfile.setAge(profileDTO.getAge());
         userProfile.setGender(profileDTO.getGender());
+        userProfile.setMobileNumber(profileDTO.getMobileNumber());
         return userProfile;
     }
 
-    public static UserProfile toUpdateUserProfile(final UserProfileDTO profileDTO){
+    public static UserProfile toUpdateUserProfile(final UserProfileDTO profileDTO, final UserProfile existingProfile){
 
         UserProfile userProfile = new UserProfile();
         userProfile.setProfileId(profileDTO.getProfileId());
-        userProfile.setUserId(profileDTO.getUserId());
-        userProfile.setProfileName(profileDTO.getProfileName());
-        userProfile.setAge(profileDTO.getAge());
-        userProfile.setGender(profileDTO.getGender());
+        userProfile.setUserId(profileDTO.getUserId() == null || profileDTO.getUserId().isEmpty() ? existingProfile.getUserId() : profileDTO.getUserId());
+        userProfile.setProfileName(profileDTO.getProfileName() == null || profileDTO.getProfileName().isEmpty() ? existingProfile.getProfileName() : profileDTO.getProfileName());
+        userProfile.setAge(profileDTO.getAge() == 0 ? existingProfile.getAge() : profileDTO.getAge());
+        userProfile.setGender(profileDTO.getGender() == null || profileDTO.getGender().isEmpty() ? existingProfile.getGender() : profileDTO.getGender());
+        userProfile.setMobileNumber(profileDTO.getMobileNumber() == null || profileDTO.getMobileNumber().isEmpty() ? existingProfile.getMobileNumber() : profileDTO.getMobileNumber());
+
+        userProfile.setCreatedDate(existingProfile.getCreatedDate());
         if (!CollectionUtils.isEmpty(profileDTO.getPostList())){
             userProfile.getPostList().clear();
             userProfile.getPostList().addAll(toPostList(profileDTO.getPostList()));
@@ -63,6 +67,7 @@ public class UserProfileTransformer {
         userProfileDTO.setProfileName(userProfile.getProfileName());
         userProfileDTO.setAge(userProfile.getAge());
         userProfileDTO.setGender(userProfile.getGender());
+        userProfileDTO.setMobileNumber(userProfile.getMobileNumber());
         if (!CollectionUtils.isEmpty(userProfile.getPostList())){
             userProfileDTO.setPostList(PostTransformer.toPostResponseDTOList(userProfile.getPostList()));
         } else {
