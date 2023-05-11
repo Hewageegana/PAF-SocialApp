@@ -1,6 +1,7 @@
 package com.social.media.app.service.userprofile;
 import com.social.media.app.entity.dto.userprofiles.UserProfileTransformer;
 import com.social.media.app.entity.dto.userprofiles.UserProfileDTO;
+import com.social.media.app.entity.model.Post;
 import com.social.media.app.entity.model.UserProfile;
 import com.social.media.app.repository.UserProfileRepository;
 import com.social.media.app.utils.exceptions.ExceptionCodes;
@@ -38,7 +39,8 @@ public class UserProfileServiceImpl implements UserProfileService {
         }
 
         profileDTO.setProfileId(profileId);
-        userProfileRepository.save(UserProfileTransformer.toUpdateUserProfile(profileDTO));
+        final UserProfile existingProfile = userProfileRepository.findExistingUserByUserId(profileId);
+        userProfileRepository.save(UserProfileTransformer.toUpdateUserProfile(profileDTO, existingProfile));
 
     }
 

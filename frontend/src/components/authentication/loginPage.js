@@ -19,6 +19,7 @@ export default function Authentication() {
                     "profileId": result.data.profileId,
                     "userId": result.data.userId,
                     "profileName": result.data.profileName,
+                    "ImageUrl": user.imageUrl
                 }
                 localStorage.setItem('loginData', JSON.stringify(UserData));
                 window.location.reload()
@@ -36,6 +37,7 @@ export default function Authentication() {
                             "profileId": response.data.profileId,
                             "userId": response.data.userId,
                             "profileName": response.data.profileName,
+                            "ImageUrl": user.imageUrl
                         }
                         localStorage.setItem('loginData', JSON.stringify(newUserData));
                         window.location.reload()
@@ -57,7 +59,7 @@ export default function Authentication() {
     return (
         <>
             <div className="Form my-4 mx-2">
-                <div className="container">
+                <div className="container profile-cont">
                     <div className="row g-0" id="row" >
                         <div className="col-lg-5">
                             <img src={loginimg} className="img-fluid" alt=""></img>

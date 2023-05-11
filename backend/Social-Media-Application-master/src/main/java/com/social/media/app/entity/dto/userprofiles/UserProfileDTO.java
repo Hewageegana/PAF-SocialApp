@@ -18,6 +18,8 @@ public class UserProfileDTO {
 
     private String gender;
 
+    private String mobileNumber;
+
     private List<PostDTO> postList;
 
     private List<StatusDTO> statusList;
@@ -112,5 +114,13 @@ public class UserProfileDTO {
      */
     public void setStatusList(final List<StatusDTO> statusList) {
         this.statusList = statusList;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }

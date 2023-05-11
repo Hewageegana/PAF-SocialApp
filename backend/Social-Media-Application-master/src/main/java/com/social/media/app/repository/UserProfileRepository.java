@@ -14,4 +14,7 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, String
 
     @Query("FROM UserProfile u WHERE u.userId = ?1")
     Optional<UserProfile> findUserByUserId(String userId);
+
+    @Query("FROM UserProfile u WHERE u.profileId = ?1")
+    UserProfile findExistingUserByUserId(String profileId);
 }

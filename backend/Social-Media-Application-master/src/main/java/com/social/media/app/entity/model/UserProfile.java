@@ -31,6 +31,8 @@ public class UserProfile {
 
     private String gender;
 
+    private String mobileNumber;
+
     @OneToMany(mappedBy = "postedBy", fetch = FetchType.LAZY, cascade = {
         CascadeType.ALL
     }, orphanRemoval = true)
@@ -169,5 +171,13 @@ public class UserProfile {
      */
     public void setGender(final String gender) {
         this.gender = gender;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 }
