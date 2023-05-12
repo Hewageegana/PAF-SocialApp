@@ -105,11 +105,11 @@ export default function Profile() {
         <h1>User Profile Management</h1>
         <form onSubmit={profileUpdate}>
           <div className="avatar">
-            <img src={loginData.ImageUrl} alt="Profile Picture" />
+            <img src={loginData.ImageUrl} alt="" />
           </div>
           <input type="text" name="profilename" placeholder="Profile Name" value={profileName} onChange={(e) => setProfilename(e.target.value)} required />
           <input type="text" name="mobile" placeholder="Mobile Number " value={mobile} onChange={(e) => setMobile(e.target.value)} />
-          <input type="number" name="age" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} />
+          <input type="text" name="age" placeholder="Age" value={age} onChange={(e) => setAge(e.target.value)} />
 
           <Select
             className="select-gender"
