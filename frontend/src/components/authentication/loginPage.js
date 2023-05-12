@@ -81,29 +81,6 @@ export default function Authentication() {
                                         className="btnLogin mt-3 mb-3"
                                     />
                                 </div>
-                                {/* <div className="form-row">
-                                    <div className="col-lg-7">
-                                        <button type="button" className="btnLogin mt-3 mb-5">Login</button>
-                                    
-                                        <GoogleLogin
-                                            clientId={client_id}
-                                            buttonText="Login with Google"
-                                            onSuccess={onSuccess}
-                                            onFailure={onFailure}
-                                            cookiePolicy={'single_host_origin'}
-                                            isSignedIn={true}
-                                        />
-                                        <GoogleLogout
-                                            clientId={client_id}
-                                            buttonText="Logout"
-                                            onLogoutSuccess={onLogout}
-                                        />
-                                    </div>
-
-                                </div> */}
-{/* 
-                                <a href="#" className="ss1">Forget Password?</a>
-                                <p>Don't have an acount?<a href="/register" className="ss1"> Register here</a></p> */}
                             </form>
 
                         </div>

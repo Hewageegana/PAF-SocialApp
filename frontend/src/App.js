@@ -71,16 +71,6 @@ function App() {
         <Route path="/" exact component={Authentication} />
         <Route path="/register" exact component={Register} />
       </div>)}
-      {/* <div>
-        <Route path="/head" exact component={header} />
-        <Route path="/post" exact component={CreatePost} />
-        <Route path="/status" exact component={CreateStatus} />
-        <Route path="/wall" exact component={PostWall} />
-        <Route path="/comment" exact component={AddComment} />
-        <Route path="/" exact component={Authentication} />
-        <Route path="/register" exact component={Register} />
-      </div> */}
-
     </Router>
   );
 }
